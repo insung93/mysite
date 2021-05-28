@@ -52,7 +52,7 @@ List<GuestbookVo> list = (List<GuestbookVo>) request.getAttribute("list");
 								</td>
 								<td><%=list.get(i).getName()%></td>
 								<td><%=list.get(i).getRegDate()%></td>
-								<td><a href="<%=request.getContextPath() %>/guestbook?a=deleteform&no=<%=list.get(i).getNo() %>">삭제</a></td>
+								<td><a href="<%=request.getContextPath() %>/guestbook?a=dseleteform&no=<%=list.get(i).getNo() %>">삭제</a></td>
 								
 							</tr>
 							<tr>

@@ -1,19 +1,26 @@
-package com.douzone.mysite.mvc.guestbook;
+package com.douzone.mysite.mvc.user;
 
 import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.douzone.mvc.Action;
 import com.douzone.mvc.util.MvcUtils;
 
-public class DeleteFormAction implements Action {
+public class LogoutAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		MvcUtils.forward("guestbook/deleteform", request, response);
+		HttpSession session =  request.getSession();
+		if(session != null) {
+			/* 로그아웃 처리 */
+			session.removeAttribute("authUser");
+			session.invalidate();
+		}
+		MvcUtils.redirect(request.getContextPath(), request, response);
 	}
 
 }

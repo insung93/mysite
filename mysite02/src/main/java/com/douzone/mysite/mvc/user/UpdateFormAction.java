@@ -26,6 +26,7 @@ public class UpdateFormAction implements Action {
 			MvcUtils.redirect(request.getContextPath(), request, response);
 			return;
 		}
+		
 		Long userNo = authUser.getNo();
 		UserVo userVo = new UserRepository().findByNo(userNo);
 		request.setAttribute("userVo", userVo);

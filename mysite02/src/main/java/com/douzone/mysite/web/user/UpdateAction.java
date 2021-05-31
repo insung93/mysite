@@ -16,6 +16,13 @@ public class UpdateAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		if(session == null) {
+			return;
+		}
+		
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String gender = request.getParameter("gender");
@@ -23,18 +30,17 @@ public class UpdateAction implements Action {
 		
 		UserVo userVo = new UserVo();
 		
+		userVo.setNo(authUser.getNo());
 		userVo.setName(name);
 		userVo.setPassword(password);
 		userVo.setGender(gender);
 		userVo.setEmail(email);
 		
 		
-		UserVo updateUserVo = new UserRepository().update(userVo);
-		
-		userVo = new UserRepository().findByEmailAndPassword(updateUserVo.getEmail(), updateUserVo.getPassword());
-		
-		HttpSession session = request.getSession(true);
-		session.setAttribute("authUser", userVo);
+		Boolean result = new UserRepository().update(userVo);
+		if(result) {
+			authUser.setName(name);
+		}
 
 		MvcUtils.redirect(request.getContextPath(), request, response);
 	}

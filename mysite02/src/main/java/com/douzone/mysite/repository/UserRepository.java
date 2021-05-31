@@ -53,7 +53,7 @@ public class UserRepository {
 		Connection conn = null;
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			String url = "jdbc:mysql://192.168.254.32:3307/webdb?characterEncoding=utf8";
+			String url = "jdbc:mysql://192.168.35.232:3307/webdb?characterEncoding=utf8";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패:" + e);
@@ -214,23 +214,30 @@ public class UserRepository {
 		return result;
 	}
 
-	public UserVo update(UserVo userVo) {
+	public Boolean update(UserVo userVo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		UserVo result = null;
+		Boolean result = false;
 
 		try {
 			conn = getConnection();
+			if("".equals(userVo.getPassword())) {
+				String sql = "update user set name=?,gender=? where no=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userVo.getName());
+				pstmt.setString(2, userVo.getGender());
+				pstmt.setLong(3, userVo.getNo());
 
-			String sql = "update user set name=?,password=?,gender=? where email=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userVo.getName());
-			pstmt.setString(2, userVo.getPassword());
-			pstmt.setString(3, userVo.getGender());
-			pstmt.setString(4, userVo.getEmail());
-			
-			
-			pstmt.executeUpdate();
+			} else {
+				String sql = "update user set name=?,password=?,gender=? where no=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userVo.getName());
+				pstmt.setString(2, userVo.getPassword());
+				pstmt.setString(3, userVo.getGender());
+				pstmt.setLong(4, userVo.getNo());
+			}
+			int count = pstmt.executeUpdate();
+			result = count == 1;
 
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
@@ -248,7 +255,7 @@ public class UserRepository {
 			}
 		}
 
-		return userVo;
+		return result;
 		
 	}
 }

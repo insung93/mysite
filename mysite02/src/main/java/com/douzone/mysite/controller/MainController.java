@@ -2,16 +2,13 @@ package com.douzone.mysite.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.douzone.mysite.web.main.MainActionFactory;
-import com.douzone.mysite.web.user.UserActionFactory;
 import com.douzone.web.Action;
-import com.douzone.web.util.MvcUtils;
 
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;

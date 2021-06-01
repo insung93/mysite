@@ -29,15 +29,26 @@ public class WriteAction implements Action {
 		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		String no = request.getParameter("no");
+		BoardVo vo = null;
+		//BoardVo vo = new BoardRepository().findAny(no);
 		
-		BoardVo vo = new BoardVo();
-		
-		vo.setTitle(title);
-		vo.setContents(content);
-		vo.setUserNo(authUser.getNo());
-		
-		new BoardRepository().insert(vo);
-		
+		if("".equals(no)) {
+			vo = new BoardVo();
+			vo.setTitle(title);
+			vo.setContents(content);
+			vo.setUserNo(authUser.getNo());
+			new BoardRepository().insert(vo);
+			System.out.println("1");
+		} else {
+			vo = new BoardRepository().findAny(no);
+			vo.setTitle(title);
+			vo.setContents(content);
+			vo.setUserNo(authUser.getNo());
+			new BoardRepository().commnetUpdate(vo);
+			System.out.println("2");
+		}
+
 		MvcUtils.redirect(request.getContextPath()+"/board", request, response);
 
 	}

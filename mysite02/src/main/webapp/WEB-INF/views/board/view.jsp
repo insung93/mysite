@@ -29,7 +29,7 @@
 						<td class="label">내용</td>
 						<td>
 							<div class="view-content">
-								${fn:replace(list.contents ,newline,"<br />")}
+								${fn:replace(list.contents ,newline,"<br/>")}
 							</div>
 						</td>
 					</tr>
@@ -41,7 +41,11 @@
 							<a href="${pageContext.request.contextPath }/board?a=modifyform&no=${list.no }">수정</a>
 						</c:when>
 					</c:choose>
-					<a href="${pageContext.request.contextPath }/board?a=comment">댓글</a>
+					<c:choose>
+						<c:when test="${not empty authUser }">
+							<a href="${pageContext.request.contextPath }/board?a=writeform&no=${list.no}">댓글</a>
+						</c:when>
+					</c:choose>
 				</div>
 			</div>
 		</div>

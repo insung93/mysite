@@ -15,9 +15,9 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="${pageContext.request.contextPath }/board" method="post">
-					<input type="hidden" id="a" value="search"/>
+				<form id="search_form" name="searchform" action="${pageContext.servletContext.contextPath }/board" method="post">
 					<input type="text" id="kwd" name="kwd" value="">
+					<input type="hidden" name="a" value="search"/>
 					<input type="submit" value="찾기">
 				</form>
 				<table class="tbl-ex">
@@ -32,31 +32,36 @@
 					<c:set var="count" value="${fn:length(list) }"/>
 					<c:forEach items="${list }" var="contents" varStatus="status">
 					<tr>
-						<td>[${count-status.index }]</td>
-						<td style="text-align: left"><a href="${pageContext.servletContext.contextPath }/board?a=view&no=${contents.no }">${contents.title }</a></td>
+						<td>[${pageInfo.totalCount-status.index-(pageInfo.currentPage-1)*5}]</td>
+						<td style="text-align: left; padding-left:${contents.depth * 20 }px">
+							<c:if test="${contents.depth != 0 }"><img src="${pageContext.servletContext.contextPath }/assets/images/reply.png"></c:if>
+							<a href="${pageContext.servletContext.contextPath }/board?a=view&no=${contents.no }">${contents.title }</a>
+						</td>
 						<td>${contents.userName }</td>
 						<td>${contents.hit }</td>
 						<td>${contents.regDate }</td>
 						<td>
 							<c:choose>
 								<c:when test="${authUser.no == contents.userNo }">
-									<a href="" class="del">삭제</a>
+									<a href="${pageContext.servletContext.contextPath }/board?a=delete&no=${contents.no }&depth=${contents.depth }&groupNo=${contents.groupNo}" class="del">삭제</a>
 								</c:when>
 							</c:choose>
 						</td>
 					</tr>
 					</c:forEach>
 				</table>
+				
+				
+				
+				
 				<!-- pager 추가 -->
 				<div class="pager">
 					<ul>
-						<li><a href="">◀</a></li>
-						<li><a href="/mysite02/board/">1</a></li>
-						<li class="selected">2</li>
-						<li><a href="">3</a></li>
-						<li>4</li>
-						<li>5</li>
-						<li><a href="">▶</a></li>
+						<li><c:if test="${pageInfo.currentPage != 1 }"><a href="${pageContext.servletContext.contextPath }/board?a=list&page=${pageInfo.prevPageNo}">◀</a></c:if></li>
+							<c:forEach var="it" begin="${pageInfo.leftPage }" end="${pageInfo.rightPage}" step="1">
+								<li <c:if test="${it==pageInfo.currentPage}">class="selected"</c:if>><a href="${pageContext.servletContext.contextPath }/board?a=list&page=${it}">${it}</a></li>
+							</c:forEach>
+						<li><c:if test="${pageInfo.currentPage != pageInfo.lastPageNo }"><a href="${pageContext.servletContext.contextPath }/board?a=list&page=${pageInfo.nextPageNo}">▶</a></c:if></li>
 					</ul>
 				</div>
 				<!-- pager 추가 -->

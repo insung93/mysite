@@ -6,6 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.douzone.mysite.repository.BoardRepository;
+import com.douzone.mysite.vo.BoardVo;
 import com.douzone.web.Action;
 import com.douzone.web.util.MvcUtils;
 
@@ -13,6 +15,15 @@ public class CommentAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String no = request.getParameter("no");
+		BoardVo vo = new BoardRepository().findAny(no);
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		
+		vo.setTitle(title);
+		vo.setContents(content);
+		
+		new BoardRepository().commnetUpdate(vo);
 		
 		MvcUtils.redirect(request.getContextPath()+"/board", request, response);
 	}

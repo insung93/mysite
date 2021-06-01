@@ -23,6 +23,8 @@ public class BoardActionFactory extends ActionFactory {
 			action = new SearchAction();
 		} else if ("comment".equals(actionName)) {
 			action = new CommentAction();
+		} else if ("delete".equals(actionName)) {
+			action = new DeleteAction();
 		}
 		
 		

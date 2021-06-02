@@ -32,7 +32,7 @@
 					<c:set var="count" value="${fn:length(list) }"/>
 					<c:forEach items="${list }" var="contents" varStatus="status">
 					<tr>
-						<td>[${pageInfo.totalCount-status.index-(pageInfo.currentPage-1)*5}]</td>
+						<td>[${pageInfo.totalCount-status.index-(pageInfo.currentPage-1)*pageInfo.displayRow}]</td>
 						<td style="text-align: left; padding-left:${contents.depth * 20 }px">
 							<c:if test="${contents.depth != 0 }"><img src="${pageContext.servletContext.contextPath }/assets/images/reply.png"></c:if>
 							<a href="${pageContext.servletContext.contextPath }/board?a=view&no=${contents.no }">${contents.title }</a>

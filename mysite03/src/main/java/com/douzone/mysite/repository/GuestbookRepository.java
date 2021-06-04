@@ -8,8 +8,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
+import com.douzone.mysite.exception.GuestbookRepositoryException;
 import com.douzone.mysite.vo.GuestbookVo;
 
+@Repository
 public class GuestbookRepository {
 	public Boolean insert(GuestbookVo vo) {
 		Connection conn = null;
@@ -122,7 +126,7 @@ public class GuestbookRepository {
 		try {
 			conn = getConnection();
 			
-			String sql ="select no, name, password, reg_date, message from guestbook";
+			String sql ="selec no, name, password, reg_date, message from guestbook";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 
@@ -143,7 +147,7 @@ public class GuestbookRepository {
 				result.add(vo);
 			}
 		} catch (SQLException e) {
-			System.out.println("error:" + e);
+			throw new GuestbookRepositoryException(e.getMessage());
 		} finally {
 			try {
 				if(rs != null) {
@@ -156,7 +160,7 @@ public class GuestbookRepository {
 					conn.close();
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new GuestbookRepositoryException(e.getMessage()); 
 			}
 		}
 		
@@ -233,5 +237,39 @@ public class GuestbookRepository {
 		}
 		
 		return result;		
+	}
+
+	public void delete(Long no, String password) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		boolean result = false;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "delete from guestbook where no=? and password=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, no);
+			pstmt.setString(2, password);
+			
+			
+			int count = pstmt.executeUpdate();
+			result = count == 1;
+			
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				// 자원정리(clean-up)
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

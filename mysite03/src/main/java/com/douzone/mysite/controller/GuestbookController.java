@@ -50,4 +50,6 @@ public class GuestbookController {
 //		// 2. 사과 페이지 이동
 //		return "error/exception";
 //	}
+
+	
 }

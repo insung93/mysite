@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.tomcat.jdbc.pool.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.douzone.mysite.exception.GuestbookRepositoryException;
@@ -15,13 +18,18 @@ import com.douzone.mysite.vo.GuestbookVo;
 
 @Repository
 public class GuestbookRepository {
+	@Autowired
+	private SqlSession sqlSession;
+	
+	@Autowired
+	private DataSource dataSource;
 	public Boolean insert(GuestbookVo vo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		boolean result = false;
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql = "insert into guestbook values(null, ? , ? , now() , ?)";
 			pstmt = conn.prepareStatement(sql);
@@ -73,7 +81,7 @@ public class GuestbookRepository {
 		ResultSet rs = null;
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql ="select no, name, password, date_format(reg_date, '%Y/%m/%d %H:%i:%s'), message from guestbook where no = ?";
 			pstmt = conn.prepareStatement(sql);
@@ -117,54 +125,7 @@ public class GuestbookRepository {
 		return result;
 	}
 	public List<GuestbookVo> findAll() {
-		List<GuestbookVo> result = new ArrayList<>();
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			conn = getConnection();
-			
-			String sql ="select no, name, password, reg_date, message from guestbook";
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-
-			while(rs.next()) {
-				Long no = rs.getLong(1);
-				String name = rs.getString(2);
-				String password = rs.getString(3);
-				String regDate = rs.getString(4);
-				String message = rs.getString(5);
-				
-				GuestbookVo vo = new GuestbookVo();
-				vo.setNo(no);
-				vo.setName(name);
-				vo.setPassword(password);
-				vo.setRegDate(regDate);
-				vo.setMessage(message);
-				
-				result.add(vo);
-			}
-		} catch (SQLException e) {
-			throw new GuestbookRepositoryException(e.getMessage());
-		} finally {
-			try {
-				if(rs != null) {
-					rs.close();
-				}
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				if(conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				throw new GuestbookRepositoryException(e.getMessage()); 
-			}
-		}
-		
-		return result;
+		return sqlSession.selectList("guestbook.findAll");
 	}
 
 	public boolean delete(GuestbookVo vo) {
@@ -173,7 +134,7 @@ public class GuestbookRepository {
 		boolean result = false;
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql = "delete from guestbook where no=? and password=?";
 			pstmt = conn.prepareStatement(sql);
@@ -208,7 +169,7 @@ public class GuestbookRepository {
 		boolean result = false;
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql = "update guestbook set name=?, message=? where no=? and password=?";
 			pstmt = conn.prepareStatement(sql);
@@ -245,7 +206,7 @@ public class GuestbookRepository {
 		boolean result = false;
 		
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			String sql = "delete from guestbook where no=? and password=?";
 			pstmt = conn.prepareStatement(sql);

@@ -126,7 +126,7 @@ public class GuestbookRepository {
 		try {
 			conn = getConnection();
 			
-			String sql ="selec no, name, password, reg_date, message from guestbook";
+			String sql ="select no, name, password, reg_date, message from guestbook";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 

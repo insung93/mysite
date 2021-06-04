@@ -10,5 +10,8 @@
 </head>
 <body>
 	<h1>Exception Occurs</h1>
+	<pre style="color: blue">
+		${exception }
+	</pre>
 </body>
 </html>

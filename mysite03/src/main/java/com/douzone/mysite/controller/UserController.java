@@ -18,7 +18,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "/join", method = RequestMethod.GET) 
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String join() {
 		return "user/join";
 	}
@@ -35,8 +35,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(
-			HttpSession session,
+	public String login(HttpSession session,
 			@RequestParam(value = "email", required = true, defaultValue = "") String email,
 			@RequestParam(value = "password", required = true, defaultValue = "") String password, Model model) {
 		System.out.println(email + ":" + password);
@@ -50,17 +49,47 @@ public class UserController {
 		System.out.println(authUser);
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
-		UserVo authUser = (UserVo)session.getAttribute("authuser");
-		//접근제어
-		if(authUser == null) {
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		// 접근제어
+		if (authUser == null) {
 			return "redirect:/";
 		}
-		//로그아웃 처리
+		// 로그아웃 처리
 		session.removeAttribute("authUser");
 		session.invalidate();
 		return "redirect:/";
 	}
+
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String update(HttpSession session, UserVo userVo) {
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		// 접근제어
+		if (authUser == null) {
+			return "redirect:/";
+		}
+		userVo.setNo(authUser.getNo());
+		userService.updateUser(userVo);
+		authUser.setName(userVo.getName());
+
+		return "redirect:/user/update";
+	}
+
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String update(HttpSession session, Model model) {
+		// 접근제어
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		if (authUser == null) {
+			return "redirect:/";
+		}
+
+		Long no = authUser.getNo();
+		UserVo userVo = userService.getUser(no);
+
+		model.addAttribute("user", userVo);
+		return "user/update";
+	}
+
 }

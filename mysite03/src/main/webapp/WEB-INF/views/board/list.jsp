@@ -69,7 +69,7 @@
 				<div class="bottom">
 					<c:choose>
 						<c:when test="${not empty authUser }">
-							<a href="${pageContext.servletContext.contextPath }/board?a=writeform" id="new-book">글쓰기</a>
+							<a href="${pageContext.servletContext.contextPath }/board/write" id="new-book">글쓰기</a>
 						</c:when>
 					</c:choose>
 				</div>

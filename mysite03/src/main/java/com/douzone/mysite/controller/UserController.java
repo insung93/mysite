@@ -36,35 +36,35 @@ public class UserController {
 		return "user/login";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(HttpSession session,
-			@RequestParam(value = "email", required = true, defaultValue = "") String email,
-			@RequestParam(value = "password", required = true, defaultValue = "") String password, Model model) {
-		System.out.println(email + ":" + password);
-		UserVo authUser = userService.getUser(email, password);
-		if (authUser == null) {
-			model.addAttribute("result", "fail");
-			model.addAttribute("email", email);
-			return "user/login";
-		}
-		session.setAttribute("authUser", authUser);
-		System.out.println(authUser);
-		return "redirect:/";
-	}
-	
-	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		// 접근제어
-		if (authUser == null) {
-			return "redirect:/";
-		}
-		// 로그아웃 처리
-		session.removeAttribute("authUser");
-		session.invalidate();
-		return "redirect:/";
-	}
-	
+//	@RequestMapping(value = "/login", method = RequestMethod.POST)
+//	public String login(HttpSession session,
+//			@RequestParam(value = "email", required = true, defaultValue = "") String email,
+//			@RequestParam(value = "password", required = true, defaultValue = "") String password, Model model) {
+//		System.out.println(email + ":" + password);
+//		UserVo authUser = userService.getUser(email, password);
+//		if (authUser == null) {
+//			model.addAttribute("result", "fail");
+//			model.addAttribute("email", email);
+//			return "user/login";
+//		}
+//		session.setAttribute("authUser", authUser);
+//		System.out.println(authUser);
+//		return "redirect:/";
+//	}
+//	
+//	@RequestMapping("/logout")
+//	public String logout(HttpSession session) {
+//		UserVo authUser = (UserVo) session.getAttribute("authUser");
+//		// 접근제어
+//		if (authUser == null) {
+//			return "redirect:/";
+//		}
+//		// 로그아웃 처리
+//		session.removeAttribute("authUser");
+//		session.invalidate();
+//		return "redirect:/";
+//	}
+//	
 	@Auth
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String update(HttpSession session, UserVo userVo) {

@@ -24,8 +24,10 @@ public class LoginIntercepter extends HandlerInterceptorAdapter {
 		if(authUser == null) {
 			request.setAttribute("email", email);
 			request.setAttribute("result", "fail");
-			response.sendRedirect("/WEB-INF/views/user/login.jsp");
+			request.getRequestDispatcher("/WEB-INF/views/user/login.jsp").forward(request, response);
+			return false;
 		}
+		System.out.println(authUser);
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authUser", authUser);
 		

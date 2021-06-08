@@ -38,12 +38,12 @@
 					<a href="${pageContext.request.contextPath }/board">글목록</a>
 					<c:choose>
 						<c:when test="${authUser.no == list.userNo }">
-							<a href="${pageContext.request.contextPath }/board?a=modifyform&no=${list.no }">수정</a>
+							<a href="${pageContext.request.contextPath }/board/modify?no=${list.no }">수정</a>
 						</c:when>
 					</c:choose>
 					<c:choose>
 						<c:when test="${not empty authUser }">
-							<a href="${pageContext.request.contextPath }/board?a=writeform&no=${list.no}">댓글</a>
+							<a href="${pageContext.request.contextPath }/board/write?no=${list.no}">댓글</a>
 						</c:when>
 					</c:choose>
 				</div>

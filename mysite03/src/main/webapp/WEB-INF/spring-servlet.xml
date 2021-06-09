@@ -10,10 +10,12 @@
 	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+	<aop:aspectj-autoproxy />
 	<!-- Validator, conversionService, messageConverter를 자동으로 등록 -->
 	<mvc:annotation-driven>
 		<mvc:argument-resolvers>
-			<bean class="com.douzone.mysite.security.AuthUserHandlerMethodArgumentResolver" />
+			<bean
+				class="com.douzone.mysite.security.AuthUserHandlerMethodArgumentResolver" />
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 
@@ -31,9 +33,9 @@
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
-			<mvc:exclude-mapping path="/user/auth"/>
-			<mvc:exclude-mapping path="/user/logout"/>
-			<mvc:exclude-mapping path="/assets/**"/>
+			<mvc:exclude-mapping path="/user/auth" />
+			<mvc:exclude-mapping path="/user/logout" />
+			<mvc:exclude-mapping path="/assets/**" />
 			<bean class="com.douzone.mysite.security.AuthIntercepter" />
 		</mvc:interceptor>
 	</mvc:interceptors>

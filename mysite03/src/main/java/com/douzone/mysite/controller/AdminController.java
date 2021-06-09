@@ -13,10 +13,10 @@ public class AdminController {
 	public String main() {
 		return "admin/main";
 	}
-//	@RequestMapping(value="/main/update", method = RequestMethod.POST)
-//	public String updateMain(SiteVo vo) {
-//		return "redirect:/admin";
-//	}
+	@RequestMapping(value="/main/update", method = RequestMethod.POST)
+	public String updateMain(SiteVo vo) {
+		return "redirect:/admin";
+	}
 	
 	@RequestMapping("/board")
 	public String board() {

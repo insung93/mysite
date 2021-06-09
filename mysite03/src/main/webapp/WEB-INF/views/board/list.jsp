@@ -1,8 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	<%
+    	pageContext.setAttribute("newline", "\n");
+		pageContext.setAttribute("&lt;", "<");
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,39 +56,59 @@
 							<td>${contents.regDate }</td>
 							<td><c:choose>
 									<c:when test="${authUser.no == contents.userNo }">
-										<a
-											href="${pageContext.servletContext.contextPath }/board/delete/${contents.no }"
-											class="del"
-											style='background-image:url("${pageContext.servletContext.contextPath }/assets/images/recycle.png")'>삭제</a>
+										<a	href="${pageContext.servletContext.contextPath }/board/delete/${contents.no }" class="del" style='background-image:url("${pageContext.servletContext.contextPath }/assets/images/recycle.png")'>삭제</a>
 									</c:when>
 								</c:choose></td>
 						</tr>
 					</c:forEach>
 				</table>
 
-
-
-
 				<!-- pager 추가 -->
-				<div class="pager">
-					<ul>
-						<li><c:if test="${pageInfo.currentPage != 1 }">
-								<a
-									href="${pageContext.servletContext.contextPath }/board?page=${pageInfo.prevPageNo}">◀</a>
-							</c:if></li>
-						<c:forEach var="it" begin="${pageInfo.leftPage }"
-							end="${pageInfo.rightPage}" step="1">
-							<li
-								<c:if test="${it==pageInfo.currentPage}">class="selected"</c:if>><a
-								href="${pageContext.servletContext.contextPath }/board?page=${it}">${it}</a></li>
-						</c:forEach>
-						<li><c:if
-								test="${pageInfo.currentPage != pageInfo.lastPageNo }">
-								<a
-									href="${pageContext.servletContext.contextPath }/board?page=${pageInfo.nextPageNo}">▶</a>
-							</c:if></li>
-					</ul>
-				</div>
+				<c:choose>
+					<c:when test="${kwd != null }">
+						<div class="pager">
+							<ul>
+								<li><c:if test="${pageInfo.currentPage != 1 }">
+										<a
+											href="${pageContext.servletContext.contextPath }/board/search?page=${pageInfo.prevPageNo}&combo=${combo}&kwd=${kwd}">◀</a>
+									</c:if></li>
+								<c:forEach var="it" begin="${pageInfo.leftPage }"
+									end="${pageInfo.rightPage}" step="1">
+									<li
+										<c:if test="${it==pageInfo.currentPage}">class="selected"</c:if>><a
+										href="${pageContext.servletContext.contextPath }/board/search?page=${it}&combo=${combo}&kwd=${kwd}">${it}</a></li>
+								</c:forEach>
+								<li><c:if
+										test="${pageInfo.currentPage != pageInfo.lastPageNo }">
+										<a
+											href="${pageContext.servletContext.contextPath }/board/search?page=${pageInfo.nextPageNo}&combo=${combo}&kwd=${kwd}">▶</a>
+									</c:if></li>
+							</ul>
+						</div>
+					</c:when>
+					<c:when test="${kwd == null }">
+						<div class="pager">
+							<ul>
+								<li><c:if test="${pageInfo.currentPage != 1 }">
+										<a
+											href="${pageContext.servletContext.contextPath }/board?page=${pageInfo.prevPageNo}">◀</a>
+									</c:if></li>
+								<c:forEach var="it" begin="${pageInfo.leftPage }"
+									end="${pageInfo.rightPage}" step="1">
+									<li
+										<c:if test="${it==pageInfo.currentPage}">class="selected"</c:if>><a
+										href="${pageContext.servletContext.contextPath }/board?page=${it}">${it}</a></li>
+								</c:forEach>
+								<li><c:if
+										test="${pageInfo.currentPage != pageInfo.lastPageNo }">
+										<a
+											href="${pageContext.servletContext.contextPath }/board?page=${pageInfo.nextPageNo}">▶</a>
+									</c:if></li>
+							</ul>
+						</div>
+					</c:when>
+				</c:choose>
+
 				<!-- pager 추가 -->
 
 				<div class="bottom">

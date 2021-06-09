@@ -1,11 +1,11 @@
-  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-    <%
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	<%
     	pageContext.setAttribute("newline", "\n");
+		pageContext.setAttribute("left", "<");
     %>
 <!DOCTYPE html>
 <html>
@@ -50,7 +50,8 @@
 								
 							</tr>
 							<tr>
-								<td colspan=4>${fn:replace(content.message ,newline,"<br />")}<br></td>
+								<td colspan=4>${fn:replace(fn:replace(content.message ,newline,"<br />"),left,'&lt;')}<br></td>
+								
 							</tr>
 						</table> <br>
 					</li>

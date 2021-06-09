@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.douzone.mysite.security.Auth;
 import com.douzone.mysite.security.AuthUser;
 import com.douzone.mysite.service.BoardService;
 import com.douzone.mysite.vo.BoardVo;
 import com.douzone.mysite.vo.UserVo;
 
+@Auth
 @Controller
 @RequestMapping("/board")
 public class BoardController {
@@ -75,6 +77,8 @@ public class BoardController {
 		HashMap<String, Integer> map = boardService.pagingByKwd(combo,kwd,page,displayRow);
 		model.addAttribute("pageInfo",map);
 		model.addAttribute("list", list);
+		model.addAttribute("kwd",kwd);
+		model.addAttribute("combo",combo);
 		return "board/list";
 	}
 }

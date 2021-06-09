@@ -1,7 +1,5 @@
 package com.douzone.mysite.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +11,8 @@ public class SiteService {
 	@Autowired
 	private SiteRepository siteRepository; 
 	
-	public List<SiteVo> findAll() {
-		return siteRepository.findAll();
+	public SiteVo find() {
+		return siteRepository.find();
 	}
 	
 }

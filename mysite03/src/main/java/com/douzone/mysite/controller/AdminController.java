@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,8 +23,9 @@ public class AdminController {
 	private SiteService siteService;
 	
 	@RequestMapping("")
-	public String main() {
-		List<SiteVo> list = siteService.findAll();
+	public String main(Model model) {
+		SiteVo site = siteService.find();
+		model.addAttribute("site",site);
 		return "admin/main";
 	}
 	@RequestMapping(value="/main/update", method = RequestMethod.POST)

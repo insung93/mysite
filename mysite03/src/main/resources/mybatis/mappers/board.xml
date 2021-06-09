@@ -58,12 +58,13 @@
 	</insert>
 	<select id="getKwdCount" parameterType="map" resultType="int">
 		<![CDATA[
-		select count(*) from board where 
+		select count(*) from board b join user u on (b.user_no = u.no) 
+		where 
 		]]>
 		<choose>
 			<when test='combo eq "title"'>title</when>
 			<when test='combo eq "contents"'>contents</when>
-			<when test='combo eq "userName"'>userName</when>
+			<when test='combo eq "username"'>name</when>
 		</choose>
 		<![CDATA[
 		like '%${kwd }%'
@@ -78,7 +79,7 @@
 		<choose>
 			<when test='combo eq "title"'>title</when>
 			<when test='combo eq "contents"'>contents</when>
-			<when test='combo eq "userName"'>userName</when>
+			<when test='combo eq "username"'>name</when>
 		</choose>
 		<![CDATA[
 		like '%${kwd }%'

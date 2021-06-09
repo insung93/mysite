@@ -29,7 +29,7 @@ public class BoardController {
 		int displayRow = 10;
 		List<BoardVo> list = boardService.findByPage(page,displayRow);
 		HashMap<String, Integer> map = boardService.paging(page,displayRow);
-		model.addAttribute("pageInfo",map);
+		model.addAttribute("pageInfo", map);
 		model.addAttribute("list", list);
 		return "board/list";
 	}
@@ -45,7 +45,7 @@ public class BoardController {
 		return "board/search";
 	}
 	@RequestMapping(value="/modify",method = RequestMethod.GET)
-	public String modify(@RequestParam("no") Long no,Model model) {
+	public String modify(@RequestParam("no") Long no ,Model model) {
 		BoardVo boardvo = boardService.findAny(no);
 		model.addAttribute("no",no);
 		model.addAttribute("list", boardvo);
@@ -79,6 +79,7 @@ public class BoardController {
 		model.addAttribute("list", list);
 		model.addAttribute("kwd",kwd);
 		model.addAttribute("combo",combo);
+		
 		return "board/list";
 	}
 }

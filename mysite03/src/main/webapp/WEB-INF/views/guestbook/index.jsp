@@ -44,7 +44,7 @@
 						<table>
 							<tr>
 								<td align="center" width=10>[${count-status.index }]</td>
-								<td width=70>${content.name }</td>
+								<td width=70>${fn:replace(content.name,left,'&lt;')}</td>
 								<td>${content.regDate }</td>
 								<td><a href="${pageContext.request.contextPath }/guestbook/delete/${content.no }">삭제</a></td>
 								

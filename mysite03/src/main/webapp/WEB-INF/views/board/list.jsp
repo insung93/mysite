@@ -22,7 +22,7 @@
 			<div id="board">
 				<form id="search_form" name="searchform"
 					action="${pageContext.servletContext.contextPath }/board/search" method="post">
-					<select id="combo" name="combo" size="1">
+					<select id="combo" name="combo">
 						<option value="title">제목</option>
 						<option value="contents">내용</option>
 						<option value="username">이름</option>

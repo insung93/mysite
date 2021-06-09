@@ -1,7 +1,5 @@
 package com.douzone.mysite.repository;
 
-import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,8 +11,8 @@ public class SiteRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<SiteVo> findAll() {
-		return sqlSession.selectList("site.findAll");
+	public SiteVo find() {
+		return sqlSession.selectOne("site.find");
 	}
 	
 }

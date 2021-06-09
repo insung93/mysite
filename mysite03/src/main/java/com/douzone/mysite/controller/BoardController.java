@@ -42,7 +42,7 @@ public class BoardController {
 	@RequestMapping(value="/delete/{no}",method = RequestMethod.GET)
 	public String delete(@PathVariable("no") Long no , Model model) {
 		boardService.delete(no);
-		return "redirect:/board";
+		return "board/search";
 	}
 	@RequestMapping(value="/modify",method = RequestMethod.GET)
 	public String modify(@RequestParam("no") Long no,Model model) {

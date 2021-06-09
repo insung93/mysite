@@ -1,14 +1,19 @@
 package com.douzone.mysite.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.douzone.mysite.security.Auth;
+import com.douzone.mysite.service.FileUploadService;
 @Auth(role="ADMIN")
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	@Autowired
+	private FileUploadService fileuploadService;
+	
 	@RequestMapping("")
 	public String main() {
 		return "admin/main";

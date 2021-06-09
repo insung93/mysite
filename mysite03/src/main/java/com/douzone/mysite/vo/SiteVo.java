@@ -1,4 +1,4 @@
-package com.douzone.mysite.controller;
+package com.douzone.mysite.vo;
 
 public class SiteVo {
 	private String title;

@@ -50,7 +50,7 @@
 								
 							</tr>
 							<tr>
-								<td colspan=4>${fn:replace(fn:replace(content.message ,newline,"<br />"),left,'&lt;')}<br></td>
+								<td colspan=4>${fn:replace(fn:replace(content.message ,newline,"&nbsp;"),left,'&lt;')}<br></td>
 								
 							</tr>
 						</table> <br>

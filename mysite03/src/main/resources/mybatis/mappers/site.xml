@@ -5,4 +5,10 @@
 	<select id="find" resultType="sitevo">
 		select * from site
 	</select>
+	<update id="update" parameterType="sitevo">
+		<![CDATA[
+		update site set title=#{title },welcome=#{welcome },description=#{description }
+		]]>
+		<choose><when test="profile != null"><![CDATA[,profile=#{profile }]]></when></choose>
+	</update>
 </mapper>

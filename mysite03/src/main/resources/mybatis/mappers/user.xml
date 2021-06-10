@@ -7,19 +7,24 @@
 			insert into user values(null, #{name }, #{email }, #{password }, #{gender }, 'USER')
 		]]>
 	</insert>
-	
+
 	<select id="findByEmailAndPassword" parameterType="map" resultType="uservo">
 		<![CDATA[
 			select no, name, role from user where email=#{e } and password=#{p }
 		]]>
 	</select>
-	
+
 	<select id="findByNo" parameterType="long" resultType="uservo">
 		<![CDATA[
 			select no, email, name, gender from user where no=#{no }
 		]]>
 	</select>
-	
+	<select id="findByEmail" parameterType="string" resultType="uservo">
+		<![CDATA[
+			select no from user where email=#{email }
+		]]>
+	</select>
+
 	<update id="update" parameterType="uservo">
 		<choose>
 			<when test='password == ""'> <!-- password를 입력 안했을 때 -->

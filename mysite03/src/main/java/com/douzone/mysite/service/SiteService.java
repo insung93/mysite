@@ -14,5 +14,10 @@ public class SiteService {
 	public SiteVo find() {
 		return siteRepository.find();
 	}
+
+	public void update(SiteVo vo) {
+		System.out.println(vo.getProfile()); 
+		siteRepository.update(vo);
+	}
 	
 }

@@ -1,7 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	<%
     	pageContext.setAttribute("newline", "\n");
@@ -20,7 +21,7 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp"/>
 		<div id="content">
 			<div id="guestbook">
-				<form action="${pageContext.request.contextPath }/guestbook/add" method="post">
+				<form:form modelAttribute="boardVo" action="${pageContext.request.contextPath }/guestbook/add" method="post">
 					<table>
 						<tr>
 							<td>이름</td>
@@ -35,7 +36,7 @@
 							<td colspan=4 align=right><input type="submit" VALUE=" 확인 "></td>
 						</tr>
 					</table>
-				</form>
+				</form:form>
 				<ul>
 				
 				<c:set var="count" value="${fn:length(list) }"/>

@@ -13,6 +13,7 @@
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js" type="text/javascript"></script>
 <link href="${pageContext.request.contextPath }/assets/css/guestbook.css"
 	rel="stylesheet" type="text/css">
 </head>

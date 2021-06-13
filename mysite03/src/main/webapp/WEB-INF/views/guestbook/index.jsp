@@ -26,11 +26,17 @@
 						<tr>
 							<td>이름</td>
 							<td><input type="text" name="name"></td>
+							<p style="color:#f00; text-align:left; padding-left:0">
+								<form:errors path="name" />
+							</p>
 							<td>비밀번호</td>
 							<td><input type="password" name="password"></td>
 						</tr>
 						<tr>
 							<td colspan=4><textarea name="message" id="content"></textarea></td>
+							<p style="color:#f00; text-align:left; padding-left:0">
+								<form:errors path="message" />
+							</p>
 						</tr>
 						<tr>
 							<td colspan=4 align=right><input type="submit" VALUE=" 확인 "></td>

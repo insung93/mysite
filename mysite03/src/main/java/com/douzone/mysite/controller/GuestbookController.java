@@ -34,10 +34,6 @@ public class GuestbookController {
 	public String add(@ModelAttribute @Valid GuestbookVo vo, Model model, BindingResult result) {
 		
 		if (result.hasErrors()) {
-//			List<ObjectError> list = result.getAllErrors();
-//			for (ObjectError error : list) {
-//				System.out.println(error);
-//			}
 			model.addAllAttributes(result.getModel());
 			return "guestbook/index";
 		}

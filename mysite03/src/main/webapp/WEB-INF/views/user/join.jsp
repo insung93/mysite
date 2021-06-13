@@ -69,7 +69,7 @@ $(function(){
 						        <spring:message code="${errors.getFieldError('name').codes[0] }" />
 						   </c:if>
 						</spring:hasBindErrors>
-					</p>   
+					</p>
 					
 					<label class="block-label" for="email">이메일</label>
 					
@@ -78,7 +78,7 @@ $(function(){
 					<img id="img-check" src="${pageContext.request.contextPath }/assets/images/check.png" style="width:18px; vertical-align: bottom; display: none"/>
 					<p style="color:#f00; text-align:left; padding-left:0">
 						<form:errors path="email" />
-					</p>   
+					</p>
 					
 					<label class="block-label"><spring:message code="user.join.label.password" /></label>
 					<form:password path="password"/>

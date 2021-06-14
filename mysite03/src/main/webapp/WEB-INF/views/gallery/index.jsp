@@ -17,6 +17,7 @@
 <script type="text/javascript">
 $(function(){
 	// 업로드 다이알로그
+	$( "#dialog-upload-form" ).show();
 	var dialogUpload = $( "#dialog-upload-form" ).dialog({
 		autoOpen: false,
 		height: 280,

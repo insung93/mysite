@@ -4,11 +4,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class GuestbookVo {
 	private Long no;
+	
 	@NotEmpty
 	private String name;
+	
 	private String password;
 	private String regDate;
-	@NotEmpty
 	private String message;
 	public Long getNo() {
 		return no;

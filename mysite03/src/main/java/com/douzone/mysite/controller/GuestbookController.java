@@ -21,23 +21,23 @@ import com.douzone.mysite.vo.GuestbookVo;
 @RequestMapping("/guestbook")
 public class GuestbookController {
 	@Autowired
-	GuestbookService guesbookService;
+	GuestbookService guestbookService;
 
-	@RequestMapping("")
+	@RequestMapping({"","index"})
 	public String index(Model model) {
-		List<GuestbookVo> list = guesbookService.getMessageList();
+		List<GuestbookVo> list = guestbookService.getMessageList();
 		model.addAttribute("list", list);
 		return "guestbook/index";
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String add(@ModelAttribute @Valid GuestbookVo vo, Model model, BindingResult result) {
+	public String add(Model model, @ModelAttribute @Valid GuestbookVo vo, BindingResult result) {
 		
 		if (result.hasErrors()) {
 			model.addAllAttributes(result.getModel());
-			return "guestbook/index";
+			return "redirect:/guestbook";
 		}
-		guesbookService.addMessage(vo);
+		guestbookService.addMessage(vo);
 		return "redirect:/guestbook";
 	}
 
@@ -50,7 +50,7 @@ public class GuestbookController {
 	@RequestMapping(value = "/delete/{no}", method = RequestMethod.POST)
 	public String delete(@PathVariable("no") Long no,
 			@RequestParam(value = "password", required = true, defaultValue = "") String password) {
-		guesbookService.deleteMessage(no, password);
+		guestbookService.deleteMessage(no, password);
 		return "redirect:/guestbook";
 	}
 //	@ExceptionHandler(Exception.class)

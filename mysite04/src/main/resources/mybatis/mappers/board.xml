@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+	<select id="findAll" resultType="boardvo">
+		<![CDATA[
+		select b.no, b.title, b.contents, b.reg_date as regDate, b.hit, b.group_no as groupNo, b.order_no as orderNo, b.depth, b.user_no as userNo, u.name as userName
+		from board b join user u on (b.user_no = u.no) 
+		order by b.group_no desc, b.order_no asc
+		]]>
+	</select>
+	<select id="countAll" resultType="int">
+		select count(*) from board
+	</select>
+	<select id="findByPage" parameterType="map" resultType="boardvo">
+		<![CDATA[
+		select b.no, b.title, b.contents, date_format(b.reg_date,'%Y년 %c년 %e일') as regDate, b.hit, b.group_no as groupNo, b.order_no as orderNo, b.depth, b.user_no as userNo, u.name as userName
+		from board b join user u on (b.user_no = u.no) 
+		order by b.group_no desc, b.order_no asc
+		limit #{currentPage}, #{displayRow }
+		]]>
+	</select>
+	<select id="view" parameterType="long" resultType="boardvo">
+		<![CDATA[
+		select b.no, b.title, b.contents, date_format(b.reg_date,'%Y년 %c년 %e일') as regDate, b.hit, b.group_no as groupNo, b.order_no as orderNo, b.depth, b.user_no as userNo, u.name as userName
+		from board b join user u on (b.user_no = u.no) 
+		where b.no = #{value }
+		]]>
+	</select>
+	<delete id="delete" parameterType="Integer">
+		<![CDATA[
+		delete from board where no = #{value }
+		]]>
+	</delete>
+	<update id="hitUpdate" parameterType="Integer">
+		<![CDATA[
+		update board set hit = hit + 1 where no = #{value }
+		]]>
+	</update>
+	<update id="modify" parameterType="boardvo">
+		<![CDATA[
+		update board set title=#{title } , contents=#{contents } where no=#{no }
+		]]>
+	</update>
+	<insert id="insertNew" parameterType="boardvo">
+		<![CDATA[
+		insert into board values(null,#{title },#{contents },now(),'0',(select if(max(b.group_no) is null,'1',max(b.group_no )+1) from board b),'1','0',#{userNo });
+		]]>
+	</insert>
+	<update id="updateOrderNo" parameterType="map">
+		<![CDATA[
+		update board set order_no=order_no+1 where group_no=#{groupNo } and order_no >= #{orderNo }
+		]]>
+	</update>
+	<insert id="insertComment" parameterType="boardvo">
+		<![CDATA[
+		insert into board values(null,#{title },#{contents },now(),'0',#{groupNo },#{orderNo },#{depth },#{userNo });
+		]]>
+	</insert>
+	<select id="getKwdCount" parameterType="map" resultType="int">
+		<![CDATA[
+		select count(*) from board b join user u on (b.user_no = u.no) 
+		where 
+		]]>
+		<choose>
+			<when test='combo eq "title"'>title</when>
+			<when test='combo eq "contents"'>contents</when>
+			<when test='combo eq "username"'>name</when>
+		</choose>
+		<![CDATA[
+		like '%${kwd }%'
+		]]>
+	</select>
+	<select id="findByKwd" parameterType="map" resultType="boardvo">
+		<![CDATA[
+		select b.no, b.title, b.contents, date_format(b.reg_date,'%Y년 %c년 %e일') as regDate, b.hit, b.group_no as groupNo, b.order_no as orderNo, b.depth, b.user_no as userNo, u.name as userName
+		from board b join user u on (b.user_no = u.no) 
+		where
+		]]>
+		<choose>
+			<when test='combo eq "title"'>title</when>
+			<when test='combo eq "contents"'>contents</when>
+			<when test='combo eq "username"'>name</when>
+		</choose>
+		<![CDATA[
+		like '%${kwd }%'
+		order by b.group_no desc, b.order_no asc
+		limit #{currentPage}, #{displayRow }
+		]]>
+	</select>
+</mapper>

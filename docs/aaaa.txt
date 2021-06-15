@@ -1,0 +1,55 @@
+[src]
+  |----[main]
+           |----[java]
+           |        |----[com]
+           |                 |----douzone
+           |                            |----config
+           |                            |        |----app
+           |                            |        |       |----DBConfig.java
+           |                            |        |       |----MyBatisConfig.java
+           |                            |        |
+           |                            |        |----web
+           |                            |                |----MvcConfig.java
+           |                            |                |----SecurityConfig.java
+           |                            |                |----MessageConfig.java
+           |                            |                |----FileuploadConfig.java
+           |                            |
+           |                            |----mysite
+           |                                      |----controller
+           |                                      |----service
+           |                                      |----repository
+           |                                      |----vo
+           |                                      |----exception
+           |                                      |----aop
+           |                                      |----config
+           |                                               |----WebConfig.java
+           |                                               |----AppConfig.java
+           |                                               
+           |----[resource]
+           |          |----logback.xml
+           |          |----com
+           |                  |----douzone
+           |                            |----mysite
+           |                                     |----config
+           |                                              |----app
+           |                                              |       |----jdbc.properties
+           |                                              |       |----mybatis
+           |                                              |                |----configuration.xml
+           |                                              |                |----mappers
+           |                                              |                          |----user.xml
+           |                                              |                          |----board.xml
+           |                                              |       
+           |                                              |----web
+           |                                                      |----message_ko.properties
+           |                                                      |----fileupload.properties
+
+src/main/java
+com.douzone.config.app
+com.douzone.config.web
+com.douzone.mysite.config
+           
+src/main/resources
+com.douzone.mysite.config.app
+com.douzone.mysite.config.app.mybatis
+com.douzone.mysite.config.app.mybatis.mappers
+com.douzone.mysite.config.web

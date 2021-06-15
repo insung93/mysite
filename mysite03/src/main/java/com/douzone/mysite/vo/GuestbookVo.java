@@ -1,13 +1,12 @@
 package com.douzone.mysite.vo;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotEmpty;
 
 public class GuestbookVo {
 	private Long no;
 	
 	@NotEmpty
 	private String name;
-	
 	private String password;
 	private String regDate;
 	private String message;

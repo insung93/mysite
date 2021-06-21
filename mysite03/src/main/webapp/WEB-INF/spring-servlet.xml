@@ -33,8 +33,7 @@
 		</mvc:message-converters>
 
 		<mvc:argument-resolvers>
-			<bean
-				class="com.douzone.mysite.security.AuthUserHandlerMethodArgumentResolver" />
+			<bean class="com.douzone.mysite.security.AuthUserHandlerMethodArgumentResolver" />
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 

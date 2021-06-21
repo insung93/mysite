@@ -57,6 +57,7 @@
 							<td><c:choose>
 									<c:when test="${authUser.no == contents.userNo }">
 										<a	href="${pageContext.servletContext.contextPath }/board/delete/${contents.no }" class="del" style='background-image:url("${pageContext.servletContext.contextPath }/assets/images/recycle.png")'>삭제</a>
+																																				
 									</c:when>
 								</c:choose></td>
 						</tr>

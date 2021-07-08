@@ -19,7 +19,12 @@ public class GuestbookRepository {
 	private DataSource dataSource;
 
 	public List<GuestbookVo> findAll() {
+		System.out.println("rapo");
 		return sqlSession.selectList("guestbook.findAll");
+	}
+	
+	public List<GuestbookVo> findAll(Long no) {
+		return sqlSession.selectList("guestbook.findAllByNo", no);
 	}
 
 	public Boolean insert(GuestbookVo vo) {
@@ -31,5 +36,4 @@ public class GuestbookRepository {
 		int count = sqlSession.delete("guestbook.delete", vo);
 		return count == 1;
 	}
-
 }

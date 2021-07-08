@@ -8,6 +8,29 @@
 	  order by reg_date desc
 		]]>
 	</select>
+	
+	<select id="findAllByNo" parameterType="long" resultType="guestbookvo">
+		<![CDATA[
+		select no, name, password, date_format(reg_date,'%Y년 %c년 %e일') as regDate, message
+		  from guestbook
+		]]>
+		<choose>
+			<when test="_parameter != 0">
+				<![CDATA[
+					where no < ${_parameter }
+				]]>	
+			</when>
+		</choose>
+		<![CDATA[
+	  	order by no desc
+	  	limit 0,3
+		]]>
+	</select>
+	
+	
+	
+	
+	
 	<insert id="insert" parameterType="guestbookvo">
 		<![CDATA[
 			insert
